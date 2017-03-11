@@ -1,0 +1,16 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Generic Lambda template for Bible memorization alexa functions
+Resources:
+  BibleLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../bibLambda.zip
+      Description: Bible memorization Lambda functions
+      FunctionName: test-alexa-bible-function-sam
+      Handler: index.handler
+      MemorySize: 128
+      Role: arn:aws:iam::463625765753:role/service-role/alexa-lambda-testrole
+      Runtime: nodejs4.3
+      Timeout: 5
