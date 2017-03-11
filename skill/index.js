@@ -24,11 +24,21 @@ const handlers = {
             console.log(error);
         });
     },
-    SayVerse : function(Book, Chapter, Verse) {
-        let path = encodeURIComponent(`${Book} ${Chapter}:${Verse}`);
-        instance.get(`/${path}`)
+    SayVerse : function() {
+        console.log(this.event.request.intent);
+        let verseObj = this.event.request.intent.slots;
+        var book = verseObj.Book.value;
+        book.charAt(0).toUpperCase() + book.slice(1);
+
+
+        let path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.Verse.value);
+
+        instance.get('/' + path)
         .then(function(res){
-            console.log(res);
+            let scriptureRes = res.data.text;
+            console.log(scriptureRes);
+
+            this.emit(':tell', scriptureRes);
         })
         .catch(function(err){
             console.log(err);
@@ -41,7 +51,10 @@ const handlers = {
 
 
 exports.handler = function (event, context) {
-    console.log(event);
+    // console.log(event);
+    //
+    // var jsonStr = event.request.intent.slots;
+    // console.log(jsonStr);
 
     let alexa = Alexa.handler(event, context);
 
