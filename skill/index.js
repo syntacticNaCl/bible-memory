@@ -11,12 +11,14 @@ const instance = axios.create({
 
 const handlers = {
     ReadVerse : function(){
+
+        var vm = this;
         instance.get('/John%203%3A16')
         .then(function(res) {
             var scriptureText = res.data.text;
             console.log(scriptureText);
 
-            Alexa.emit(':tell', scriptureText);
+            vm.emit(':tell', scriptureText);
 
         })
         .catch( function(error){
