@@ -28,7 +28,7 @@ const handlers = {
 
 
 exports.handler = function (event, context) {
-    console.log("hello world.");
+    console.log(event);
 
     let alexa = Alexa.handler(event, context);
 
