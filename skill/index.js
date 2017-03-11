@@ -31,20 +31,20 @@ const handlers = {
 
         let book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
 
-        if(verseObj.Book.value.toLowerCase().includes("first") || verseObj.Book.value.toLowerCase().includes("second") || verseObj.Book.value.toLowerCase().includes("third")){
+        if(verseObj.Book.value.includes("1") || verseObj.Book.value.includes("2") || verseObj.Book.value.includes("3")){
             let ar = verseObj.Book.value.split(" ");
 
             firstOrThird = ar[0];
             book = ar[1].charAt(0).toUpperCase() + ar[1].slice(1);
 
             switch(firstOrThird){
-            case "first": 
+            case "1rst": 
                  book = "1" + ar[1];
                  break;
-            case "second":
+            case "2nd":
                 book = "2" + ar[1];
                 break;
-            case "third":
+            case "3rd":
                 book = "3" + ar[1];
                 break
             default: 
