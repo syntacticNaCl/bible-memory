@@ -31,7 +31,7 @@ const handlers = {
 
         let book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
 
-        if(book.value.toLowerCase().includes("first") || verseObj.Book.value.toLowerCase().includes("second") || verseObj.Book.value.toLowerCase().includes("third")){
+        if(verseObj.Book.value.toLowerCase().includes("first") || verseObj.Book.value.toLowerCase().includes("second") || verseObj.Book.value.toLowerCase().includes("third")){
             let ar = verseObj.Book.value.split(" ");
 
             firstOrThird = ar[0];
