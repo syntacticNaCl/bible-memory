@@ -6,7 +6,7 @@ Resources:
   BibleLambda:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: bibLambda.zip
+      CodeUri: skill
       Description: Bible memorization Lambda functions
       FunctionName: test-alexa-bible-function-sam
       Handler: index.handler
