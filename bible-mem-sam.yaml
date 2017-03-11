@@ -14,3 +14,6 @@ Resources:
       Role: arn:aws:iam::463625765753:role/service-role/alexa-lambda-testrole
       Runtime: nodejs4.3
       Timeout: 5
+      Events:
+        AlexaSkillEvent:
+          Type: AlexaSkill
