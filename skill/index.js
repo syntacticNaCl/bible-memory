@@ -15,7 +15,7 @@ const handlers = {
         .then(function(res) {
             var scriptureText = res.data.text;
             console.log(scriptureText);
-            this.emit(':tell', scriptureText.text);
+            this.emit(':tell', scriptureText);
         })
         .catch( function(error){
             console.log(error);
@@ -28,7 +28,7 @@ const handlers = {
 
 
 exports.handler = function (event, context) {
-    context.log("hello-world")
+    console.log("hello world.");
 
     let alexa = Alexa.handler(event, context);
 
