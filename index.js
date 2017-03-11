@@ -2,7 +2,7 @@
 
 const axios = require('axios');
 const Alexa = require('alexa-sdk');
-const HANDLERS = require('/handlers');
+const alexaHandlers = require('/handlers');
 
 const instance = axios.create({
     baseURL: 'https://c4tk.contentplatform.prod.lifeway.com/scripture/'
@@ -16,6 +16,6 @@ export.handlers = function (event, context) {
     // alexa.APP_ID = APP_ID;
     // To enable string internationalization (i18n) features, set a resources object.
     // alexa.resources = languageStrings; 
-    alexa.registerHandlers(handlers);
+    alexa.registerHandlers(alexaHandlers.handle);
     alexa.execute();
 };

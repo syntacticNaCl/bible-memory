@@ -1,5 +1,5 @@
 
-const handlers = {
+const handle = {
     ReadVerse : function(){
         instance.get('/John%203%3A16')
         .then(function(res) {
@@ -13,4 +13,4 @@ const handlers = {
     }
 }
 
-module.exports = handlers;
+module.exports = handle;
