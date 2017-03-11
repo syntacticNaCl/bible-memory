@@ -26,9 +26,35 @@ const handlers = {
     },
     SayVerse : function() {
         console.log(this.event.request.intent);
+        let firstOrThird;
         let verseObj = this.event.request.intent.slots;
+
         let book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
+
+        if(book.value.toLowerCase().includes("first") || verseObj.Book.value.toLowerCase().includes("second") || verseObj.Book.value.toLowerCase().includes("third")){
+            let ar = verseObj.Book.value.split(" ");
+
+            firstOrThird = ar[0];
+            book = ar[1].charAt(0).toUpperCase() + ar[1].slice(1);
+
+            switch(firstOrThird){
+            case "first": 
+                 book = "1" + ar[1];
+                 break;
+            case "second":
+                book = "2" + ar[1];
+                break;
+            case "third":
+                book = "3" + ar[1];
+                break
+            default: 
+                break;
+        }
+    }
+    
+
         let path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.Verse.value);
+        
         let vm = this;
 
         instance.get('/' + path)
