@@ -9,7 +9,7 @@ const instance = axios.create({
 });
 
 
-export.handlers = function (event, context) {
+export.handler = function (event, context) {
 
     let alexa = Alexa.handler(event, context);
 
