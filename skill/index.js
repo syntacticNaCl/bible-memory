@@ -38,7 +38,7 @@ const handlers = {
             book = ar[1].charAt(0).toUpperCase() + ar[1].slice(1);
 
             switch(firstOrThird){
-            case "1rst": 
+            case "1st": 
                  book = "1" + ar[1];
                  break;
             case "2nd":
