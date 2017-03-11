@@ -27,16 +27,16 @@ const handlers = {
     SayVerse : function() {
         console.log(this.event.request.intent);
         let verseObj = this.event.request.intent.slots;
-        var book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
-
+        let book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
         let path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.Verse.value);
+        let vm = this;
 
         instance.get('/' + path)
         .then(function(res){
             let scriptureRes = res.data.text;
             console.log(scriptureRes);
 
-            this.emit(':tell', scriptureRes);
+            vm.emit(':tell', scriptureRes);
         })
         .catch(function(err){
             console.log(err);
