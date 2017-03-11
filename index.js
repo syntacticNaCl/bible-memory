@@ -10,6 +10,7 @@ const instance = axios.create({
 
 
 exports.handler = function (event, context) {
+    context.log("hello-world")
 
     let alexa = Alexa.handler(event, context);
 
