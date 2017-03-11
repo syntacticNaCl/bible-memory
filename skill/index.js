@@ -27,9 +27,7 @@ const handlers = {
     SayVerse : function() {
         console.log(this.event.request.intent);
         let verseObj = this.event.request.intent.slots;
-        var book = verseObj.Book.value;
-        book.charAt(0).toUpperCase() + book.slice(1);
-
+        var book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
 
         let path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.Verse.value);
 
@@ -60,7 +58,7 @@ exports.handler = function (event, context) {
 
     // alexa.APP_ID = APP_ID;
     // To enable string internationalization (i18n) features, set a resources object.
-    // alexa.resources = languageStrings; 
+    // alexa.resources = languageStrings;
     alexa.registerHandlers(handlers);
     alexa.execute();
 };
