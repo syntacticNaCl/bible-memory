@@ -15,11 +15,9 @@ const handlers = {
         .then(function(res) {
             var scriptureText = res.data.text;
             console.log(scriptureText);
-<<<<<<< HEAD
+
             Alexa.emit(':tell', scriptureText);
-=======
-            this.emit(':tell', scriptureText);
->>>>>>> 7cbcd3c68f2c5927fd63c95551ace22061802904
+
         })
         .catch( function(error){
             console.log(error);
