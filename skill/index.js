@@ -15,7 +15,7 @@ const handlers = {
         .then(function(res) {
             var scriptureText = res.data.text;
             console.log(scriptureText);
-            this.emit(':tell', scriptureText.text);
+            Alexa.emit(':tell', scriptureText);
         })
         .catch( function(error){
             console.log(error);
@@ -23,6 +23,9 @@ const handlers = {
     },
     SayVerse : function(Book, Chapter, Verse) {
 
+    },
+    Unhandled : function() {
+        this.emit(':tell', "Sorry for you I have not this intent");
     }
 }
 
