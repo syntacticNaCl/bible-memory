@@ -111,9 +111,23 @@ const handlers = {
                 break;
         }
     }
-    
 
-        let path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.Verse.value);
+
+        let path;
+        let intro;
+        if(verseObj.StartVerse.value == null){
+            path = encodeURIComponent(book + ' ' + verseObj.Chapter.value);
+            intro = 'Reading ' + verseObj.Book.value + ' chapter ' + verseObj.Chapter.value + '<break time="500ms"/>'
+        } else if(verseObj.StartVerse.value != null && verseObj.EndVerse.value == null) {
+            path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.StartVerse.value);
+            intro = 'Reading ' + verseObj.Book.value + ' chapter ' + verseObj.Chapter.value + ' verse ' + verseObj.StartVerse.value + '<break time="500ms"/>';
+        } else if(verseObj.StartVerse.value != null && verseObj.EndVerse.value != null) {
+            path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.StartVerse.value + '-' + verseObj.EndVerse.value);
+            intro = 'Reading ' + verseObj.Book.value + ' chapter ' + verseObj.Chapter.value + ' verses ' + verseObj.StartVerse.value + ' through ' + verseObj.EndVerse.value + '<break time="500ms"/>';
+        } else {
+            path = encodeURIComponent(book + ' ' + verseObj.Chapter.value);
+            intro = 'Reading ' + verseObj.Book.value + ' chapter ' + verseObj.Chapter.value + '<break time="500ms"/>';
+        }
         
         let vm = this;
 
@@ -121,12 +135,14 @@ const handlers = {
         .then(function(res){
             let scriptureRes = res.data.text;
             console.log(scriptureRes);
-            session.attributes.originText = scriptureRes;
-            session.attributes.originArray = scriptureRes.split();
-            session.attributes.currentArraySpot = 0;
-            session.attributes.nextArraySpot = session.attributes.currentArraySpot + 2;
+            this.event.session.attributes.originText = scriptureRes;
+            this.event.session.attributes.originArray = scriptureRes.split();
+            this.event.session.attributes.currentArraySpot = 0;
+            this.event.session.attributes.nextArraySpot = session.attributes.currentArraySpot + 2;
 
-            vm.emit(':ask', session.attributes.originArray[session.attributes.currentArraySpot] + session.attributes.originArray[session.attributes.currentArraySpot + 1]);
+            let currentArraySpot = this.event.session.attributes.currentArraySpot;
+
+            vm.emit(':ask', this.event.session.attributes.originArray[currentArraySpot] + this.event.session.attributes.originArray[currentArraySpot + 1]);
         
          
         })
