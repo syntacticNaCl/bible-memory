@@ -134,12 +134,12 @@ const handlers = {
         instance.get('/' + path)
         .then(function(res){
             let scriptureRes = res.data.text;
-            console.log(res);
-            if(Object.keys(this.attributes).length === 0) { // Check if it's the first time the skill has been invoked
+            console.log(vm);
+            if(Object.keys(vm.attributes).length === 0) { // Check if it's the first time the skill has been invoked
 
-                session.attributes = {
+                vm.attributes = {
                     originText : scriptureRes,
-                    originArray : scriptureRes.split(),
+                    originArray : scriptureRes.split(' '),
                     currentArraySpot : 0,
                     nextArraySpot : 2
                 };
@@ -149,9 +149,9 @@ const handlers = {
                 this.attributes['currentArraySpot'] = 0;
                 this.attributes['nextArraySpot'] = this.attributes['currentArraySpot'] + 2;
 */
-                let currentArraySpot = session.attributes.currentArraySpot;
+                let currentArraySpot = vm.attributes.currentArraySpot;
 
-                vm.emit(':ask', session.attributes.originArray[0] + session.attributes.originArray[1]);
+                vm.emit(':ask', vm.attributes.originArray[0] + vm.attributes.originArray[1]);
             }
 
          
@@ -163,11 +163,11 @@ const handlers = {
     NextWordIntent : function(){
         let resObject = this.event.request.intent.slots;
         let nextWord = resObject.NextWord.value;
-        if(nextWord === session.attributes.originArray[session.attributes.nextArraySpot])
+        if(nextWord === this.attributes.originArray[this.attributes.nextArraySpot])
         {
-            session.attributes.currentArraySpot = session.attributes.nextArraySpot + 1;
-            session.attributes.nextArraySpot = session.attributes.currentArraySpot + 2;
-            this.emit(':ask', session.attributes.originArray[session.attributes.currentArraySpot] + session.attributes.originArray[session.attributes.currentArraySpot + 1]);
+            this.attributes.currentArraySpot = this.attributes.nextArraySpot + 1;
+            this.attributes.nextArraySpot = this.attributes.currentArraySpot + 2;
+            this.emit(':ask', this.attributes.originArray[this.attributes.currentArraySpot] + this.attributes.originArray[this.attributes.currentArraySpot + 1]);
         }
         else
         {
