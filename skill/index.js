@@ -134,16 +134,19 @@ const handlers = {
         instance.get('/' + path)
         .then(function(res){
             let scriptureRes = res.data.text;
-            console.log(scriptureRes);
-            this.event.session.attributes.originText = scriptureRes;
-            this.event.session.attributes.originArray = scriptureRes.split();
-            this.event.session.attributes.currentArraySpot = 0;
-            this.event.session.attributes.nextArraySpot = session.attributes.currentArraySpot + 2;
+            console.log(res);
+            if(Object.keys(this.attributes).length === 0) { // Check if it's the first time the skill has been invoked
 
-            let currentArraySpot = this.event.session.attributes.currentArraySpot;
+                this.attributes['originText'] = scriptureRes;
+                this.attributes['originArray'] = scriptureRes.split();
+                this.attributes['currentArraySpot'] = 0;
+                this.attributes['nextArraySpot'] = this.attributes['currentArraySpot'] + 2;
 
-            vm.emit(':ask', this.event.session.attributes.originArray[currentArraySpot] + this.event.session.attributes.originArray[currentArraySpot + 1]);
-        
+                let currentArraySpot = this.attributes['currentArraySpot'];
+
+                vm.emit(':ask', this.attributes.originArray[currentArraySpot] + this.attributes.originArray[currentArraySpot + 1]);
+            }
+
          
         })
         .catch(function(err){
