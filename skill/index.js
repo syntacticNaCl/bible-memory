@@ -85,6 +85,7 @@ const handlers = {
         this.emit(':tell', "Sorry for you I have not this intent");
     },
     StudyVerse : function(){
+        console.log(this.event.request.intent);
         let firstOrThird;
         let verseObj = this.event.request.intent.slots;
 
