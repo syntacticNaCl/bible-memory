@@ -2,6 +2,7 @@
 
 const axios = require('axios');
 const Alexa = require('alexa-sdk');
+const AWS = require("aws-sdk");
 
 //const alexaHandlers = require('/handlers');
 
@@ -12,18 +13,6 @@ const instance = axios.create({
 
 
 const handlers = {
-    ReadVerse : function(){
-        var vm = this;
-        instance.get('/John%203%3A16')
-        .then(function(res) {
-            var scriptureText = res.data.text;
-            console.log(scriptureText);
-            vm.emit(':tell', scriptureText);
-        })
-        .catch( function(error){
-            console.log(error);
-        });
-    },
     SayVerse : function() {
         console.log(this.event.request.intent);
         let firstOrThird;
@@ -82,9 +71,10 @@ const handlers = {
         });
     },
     Unhandled : function() {
-        this.emit(':tell', "Sorry for you I have not this intent");
+        this.emit(':tell', "Please ask me to read or study a verse");
     },
     StudyVerse : function(){
+        console.log("STUDY VERSE FIRED");
         console.log(this.event.request.intent);
         let firstOrThird;
         let verseObj = this.event.request.intent.slots;
@@ -135,6 +125,7 @@ const handlers = {
         .then(function(res){
             let scriptureRes = res.data.text;
             console.log(vm);
+            console.log(scriptureRes);
             if(Object.keys(vm.attributes).length === 0) { // Check if it's the first time the skill has been invoked
 
                 vm.attributes = {
@@ -143,16 +134,45 @@ const handlers = {
                     currentArraySpot : 0,
                     nextArraySpot : 2
                 };
-                /*
-                this.attributes['originText'] = scriptureRes;
-                this.attributes['originArray'] = scriptureRes.split();
-                this.attributes['currentArraySpot'] = 0;
-                this.attributes['nextArraySpot'] = this.attributes['currentArraySpot'] + 2;
-*/
-                let currentArraySpot = vm.attributes.currentArraySpot;
 
-                // vm.emit(':ask', vm.attributes.originArray[0] + vm.attributes.originArray[1]);
-                vm.emit(':ask', 'Is this working?', 'Please say yes or no.');
+
+
+                var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+                var params = {
+                    Item: {
+                        "sessionId": {
+                            S: vm.event.session.sessionId
+                        }, "originText": {
+                            S: scriptureRes
+                        }, "anwser": {
+                            S: vm.attributes.originArray[2]
+                        }, "position": {
+                            N: "2"
+                        }
+                    },
+                    TableName: "c4tk-biblememory-session"
+                };
+                dynamodb.putItem(params, function(err, data) {
+                    if (err) console.log(err, err.stack); // an error occurred
+                    else {
+                        console.log(data);
+
+                        console.log(vm.attributes.originArray[0]);
+
+                        vm.emit(':ask', vm.attributes.originArray[0] + ' ' + vm.attributes.originArray[1]);
+                    }
+                });
+
+
+
+                // vm.attributes['originText'] = scriptureRes;
+                // vm.attributes['originArray'] = scriptureRes.split(' ');
+                // vm.attributes['currentArraySpot'] = 0;
+                // vm.attributes['nextArraySpot'] = vm.attributes['currentArraySpot'] + 2;
+
+               // let currentArraySpot = vm.attributes.currentArraySpot;
+
+
             }
 
          
@@ -164,16 +184,46 @@ const handlers = {
     NextWordIntent : function(){
         let resObject = this.event.request.intent.slots;
         let nextWord = resObject.NextWord.value;
-        if(nextWord === this.attributes.originArray[this.attributes.nextArraySpot])
-        {
-            this.attributes.currentArraySpot = this.attributes.nextArraySpot + 1;
-            this.attributes.nextArraySpot = this.attributes.currentArraySpot + 2;
-            this.emit(':ask', this.attributes.originArray[this.attributes.currentArraySpot] + this.attributes.originArray[this.attributes.currentArraySpot + 1]);
-        }
-        else
-        {
-            this.emit(':ask', "Wrong! So sorry you can't remember stuff");
-        }
+
+        var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+        var params = {
+            Key: {
+                "sessionId": {
+                    S: this.event.session.sessionId
+                }
+            },
+            TableName: "c4tk-biblememory-session"
+        };
+
+        let vm = this;
+        dynamodb.getItem(params, function(err, data) {
+            if (err) console.log(err, err.stack); // an error occurred
+            else {
+                console.log(data);
+                console.log(data.Item.anwser.S);
+                console.log(nextWord);
+                if(nextWord === data.Item.anwser.S.value) {
+                    vm.emit(":tell", "YOU WIN")
+                } else {
+                    vm.emit(':ask', "Try again");
+                }
+            }
+        });
+
+
+
+        // console.log(this.attributes["originArray"]);
+        // console.log(this.attributes["nextArraySpot"]);
+        // if(nextWord === this.attributes.originArray[this.attributes.nextArraySpot])
+        // {
+        //     this.attributes.currentArraySpot = this.attributes.nextArraySpot + 1;
+        //     this.attributes.nextArraySpot = this.attributes.currentArraySpot + 2;
+        //     this.emit(':ask', this.attributes.originArray[this.attributes.currentArraySpot] + ' ' + this.attributes.originArray[this.attributes.currentArraySpot + 1]);
+        // }
+        // else
+        // {
+        //     this.emit(':ask', "Wrong! So sorry you can't remember stuff");
+        // }
     }
     
 }
