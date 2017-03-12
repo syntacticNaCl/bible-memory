@@ -194,9 +194,13 @@ const handlers = {
         dynamodb.getItem(params, function(err, data) {
             if (err) console.log(err, err.stack); // an error occurred
             else {
-                console.log(data);
-                console.log(data.Item.answer.S);
-                console.log(nextWord);
+                if (typeof data.Item.answer.S === undefined) {
+                    console.log(data.Item.answer.S);
+                    console.log(nextWord);
+                    console.log(data);
+                    this.emit()
+                }
+
                 if(nextWord === data.Item.answer.S) { // TODO: need to check if exists
                     var originArray = data.Item.originText.S.split(' ');
                     var nextPosition = parseInt(data.Item.nextPosition.N) + 3;
@@ -227,7 +231,13 @@ const handlers = {
 
                             console.log(originArray[0]);
 
-                            if ((typeof originArray[nextPosition - 3] !== undefined) && (typeof originArray[nextPosition -2] !== undefined)) {
+                            if (params.answer == null) { // check if it has two words
+                                vm.emit(':ask', originArray[nextPosition - 3], originArray[nextPosition - 3]);
+                            }
+                            else if (typeof originArray[nextPosition - 3] === undefined) {
+                                vm.emit('You did it!')
+                            }
+                            else {
                                 vm.emit(':ask', originArray[nextPosition - 3] + ' ' + originArray[nextPosition - 2]);
                             }
 
