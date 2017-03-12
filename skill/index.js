@@ -156,7 +156,12 @@ const handlers = {
                             S: originArray[2].replace(/[.,\/#!$%\^&\*;:{}=_`~()]/g,"")
                         }, "nextPosition": {
                             N: "3"
+                        }, "currentPosition":{
+                            N: "2"
+                        }, "originArray" : {
+                            SS: originArray
                         }
+                        
                     },
                     TableName: "c4tk-biblememory-session"
                 };
@@ -202,15 +207,33 @@ const handlers = {
                 }
 
                 if(nextWord === data.Item.answer.S) { // TODO: need to check if exists
-                    var originArray = data.Item.originText.S.split(' ');
+                    var originArray = data.Item.originArray.SS;
                     var nextPosition = parseInt(data.Item.nextPosition.N) + 3;
 
                     console.log(vm.event.session.sessionId);
                     console.log(data.Item.originText.S);
                     console.log(originArray[nextPosition]);
                     console.log(nextPosition);
+let currentPos = data.Item.currentPosition;
+let verseLength = data.Item.originArray.length;
 
-                    var params = {
+                    if((data.Item.originArray.length - data.Item.currentPosition) <= 0)
+                    {
+                        vm.emit(':tell','You did it!');
+                        //no put to db
+                    }
+                    else if(data.Item.originArray.length - data.Item.currentPosition <= 1)
+                    {
+                         vm.emit(':tell', data.Item.originArray[currentPos + 1] + '. You did it!');
+                        //no put to db
+                    }
+                    else if(data.Item.originArray.length - data.Item.currentPosition <= 2)
+                    {
+                        vm.emit(':tell', data.Item.originArray[currentPos + 1] + data.Item.originArray[currentPos + 2] +  '. You did it!');
+                        //put to db
+                    }
+                    else{
+                           let params = {
                         Item: {
                             "sessionId": {
                                 S: vm.event.session.sessionId
@@ -220,6 +243,8 @@ const handlers = {
                                 S: originArray[nextPosition - 1].replace(/[.,\/#!$%\^&\*;:{}=_`~()]/g,"")
                             }, "nextPosition": {
                                 N: nextPosition.toString()
+                            }, "currentPosition" : {         
+                               N: nextPosition - 1 
                             }
                         },
                         TableName: "c4tk-biblememory-session"
@@ -235,7 +260,7 @@ const handlers = {
                                 vm.emit(':ask', originArray[nextPosition - 3], originArray[nextPosition - 3]);
                             }
                             else if (typeof originArray[nextPosition - 3] === undefined) {
-                                vm.emit('You did it!')
+                                vm.emit(':tell','You did it!')
                             }
                             else {
                                 vm.emit(':ask', originArray[nextPosition - 3] + ' ' + originArray[nextPosition - 2]);
@@ -243,6 +268,9 @@ const handlers = {
 
                         }
                     });
+                    }
+                    
+                 
                 } else {
                     vm.emit(':ask', "Try again");
                 }
