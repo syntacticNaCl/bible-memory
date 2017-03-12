@@ -30,7 +30,6 @@ const handlers = {
         let verseObj = this.event.request.intent.slots;
 
         let book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
-
         if(verseObj.Book.value.includes("1") || verseObj.Book.value.includes("second") || verseObj.Book.value.includes("3")){
             let ar = verseObj.Book.value.split(" ");
 
@@ -38,7 +37,7 @@ const handlers = {
             book = ar[1].charAt(0).toUpperCase() + ar[1].slice(1);
 
             switch(firstOrThird){
-            case "1st": 
+            case "1st":
                  book = "1 " + ar[1];
                  break;
             case "second":
@@ -47,14 +46,22 @@ const handlers = {
             case "3rd":
                 book = "3 " + ar[1];
                 break
-            default: 
+            default:
                 break;
         }
     }
-    
 
-        let path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.Verse.value);
-        
+        let path;
+        if(verseObj.StartVerse == null){
+            path = encodeURIComponent(book + ' ' + verseObj.Chapter.value);
+        } else if(verseObj.StartVerse != null && verseObj.EndVerse == null) {
+            path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.StartVerse.value);
+        } else if(verseObj.StartVerse != null && verseObj.EndVerse != null) {
+            path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.StartVerse.value + '-' + verseObj.EndVerse.value);
+        } else {
+            path = encodeURIComponent(book + ' ' + verseObj.Chapter.value);
+        }
+
         let vm = this;
 
         instance.get('/' + path)
