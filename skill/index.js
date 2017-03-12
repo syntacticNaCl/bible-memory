@@ -13,6 +13,9 @@ const instance = axios.create({
 
 
 const handlers = {
+    'LaunchRequest': function () {
+        this.emit(':ask', 'Welcome to Scripture Memory. Ask me to study something?', 'Ask me to study a book, chapter and verse');
+    },
     SayVerse : function() {
         console.log(this.event.request.intent);
         let firstOrThird;
@@ -128,7 +131,7 @@ const handlers = {
             console.log(scriptureRes);
             if(Object.keys(vm.attributes).length === 0) { // Check if it's the first time the skill has been invoked
 
-                var originArray = scriptureRes.split(' ')
+                var originArray = scriptureRes.split(' ');
 
                 var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
                 var params = {
@@ -137,7 +140,7 @@ const handlers = {
                             S: vm.event.session.sessionId
                         }, "originText": {
                             S: scriptureRes
-                        }, "anwser": {
+                        }, "answer": {
                             S: originArray[2].replace(/[.,\/#!$%\^&\*;:{}=_`~()]/g,"")
                         }, "nextPosition": {
                             N: "3"
@@ -180,9 +183,9 @@ const handlers = {
             if (err) console.log(err, err.stack); // an error occurred
             else {
                 console.log(data);
-                console.log(data.Item.anwser.S);
+                console.log(data.Item.answer.S);
                 console.log(nextWord);
-                if(nextWord === data.Item.anwser.S) {
+                if(nextWord === data.Item.answer.S) {
                     var originArray = data.Item.originText.S.split(' ');
                     var nextPosition = parseInt(data.Item.nextPosition.N) + 3;
 
@@ -197,7 +200,7 @@ const handlers = {
                                 S: vm.event.session.sessionId
                             }, "originText": {
                                 S: data.Item.originText.S
-                            }, "anwser": {
+                            }, "answer": {
                                 S: originArray[nextPosition - 1].replace(/[.,\/#!$%\^&\*;:{}=_`~()]/g,"")
                             }, "nextPosition": {
                                 N: nextPosition.toString()
@@ -212,7 +215,10 @@ const handlers = {
 
                             console.log(originArray[0]);
 
-                            vm.emit(':ask', originArray[nextPosition - 3] + ' ' + originArray[nextPosition - 2]);
+                            if ((typeof originArray[nextPosition - 3] !== undefined) && (typeof originArray[nextPosition -2] !== undefined)) {
+                                vm.emit(':ask', originArray[nextPosition - 3] + ' ' + originArray[nextPosition - 2]);
+                            }
+
                         }
                     });
                 } else {
