@@ -182,6 +182,8 @@ const handlers = {
         let resObject = this.event.request.intent.slots;
         let nextWord = resObject.NextWord.value;
 
+        console.log('NAME NEXT: ' + nextWord);
+
         var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
         var params = {
             Key: {
@@ -259,6 +261,10 @@ const handlers = {
 
 
                 } else {
+                    let resObject = this.event.request.intent.slots;
+                    let nextWord = resObject.NextWord.value;
+                    console.log('SLOTS ' + resObject);
+                    console.log('NEXTWORD ' + nextWord);
                     vm.emit(':ask', "Try again");
                 }
             }
