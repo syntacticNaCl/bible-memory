@@ -137,14 +137,21 @@ const handlers = {
             console.log(res);
             if(Object.keys(this.attributes).length === 0) { // Check if it's the first time the skill has been invoked
 
+                session.attributes = {
+                    originText : scriptureRes,
+                    originArray : scriptureRes.split(),
+                    currentArraySpot : 0,
+                    nextArraySpot : 2
+                };
+                /*
                 this.attributes['originText'] = scriptureRes;
                 this.attributes['originArray'] = scriptureRes.split();
                 this.attributes['currentArraySpot'] = 0;
                 this.attributes['nextArraySpot'] = this.attributes['currentArraySpot'] + 2;
+*/
+                let currentArraySpot = session.attributes.currentArraySpot;
 
-                let currentArraySpot = this.attributes['currentArraySpot'];
-
-                vm.emit(':ask', this.attributes.originArray[currentArraySpot] + this.attributes.originArray[currentArraySpot + 1]);
+                vm.emit(':ask', session.attributes.originArray[0] + session.attributes.originArray[1]);
             }
 
          
