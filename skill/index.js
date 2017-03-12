@@ -55,16 +55,16 @@ const handlers = {
         let intro;
         if(verseObj.StartVerse.value == null){
             path = encodeURIComponent(book + ' ' + verseObj.Chapter.value);
-            intro = 'Reading ' + book + ' chapter ' + verseObj.Chapter.value
+            intro = 'Reading ' + verseObj.Book.value + ' chapter ' + verseObj.Chapter.value + '<break time="500ms"/>'
         } else if(verseObj.StartVerse.value != null && verseObj.EndVerse.value == null) {
             path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.StartVerse.value);
-            intro = 'Reading ' + book + ' chapter ' + verseObj.Chapter.value + ' verse ' + verseObj.StartVerse.value;
+            intro = 'Reading ' + verseObj.Book.value + ' chapter ' + verseObj.Chapter.value + ' verse ' + verseObj.StartVerse.value + '<break time="500ms"/>';
         } else if(verseObj.StartVerse.value != null && verseObj.EndVerse.value != null) {
             path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.StartVerse.value + '-' + verseObj.EndVerse.value);
-            intro = 'Reading ' + book + ' chapter ' + verseObj.Chapter.value + ' verses ' + verseObj.StartVerse.value + ' through ' + verseObj.EndVerse.value;
+            intro = 'Reading ' + verseObj.Book.value + ' chapter ' + verseObj.Chapter.value + ' verses ' + verseObj.StartVerse.value + ' through ' + verseObj.EndVerse.value + '<break time="500ms"/>';
         } else {
             path = encodeURIComponent(book + ' ' + verseObj.Chapter.value);
-            intro = 'Reading ' + book + ' chapter ' + verseObj.Chapter.value
+            intro = 'Reading ' + verseObj.Book.value + ' chapter ' + verseObj.Chapter.value + '<break time="500ms"/>';
         }
 
         let vm = this;
