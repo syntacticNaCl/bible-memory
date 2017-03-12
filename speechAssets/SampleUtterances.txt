@@ -1,0 +1,109 @@
+SayVerse to read me {Book} {Chapter}
+SayVerse to read me {Book} chapter {Chapter}
+SayVerse to read to me {Book} {Chapter}
+SayVerse to read to me {Book} chapter {Chapter}
+SayVerse to say {Book} {Chapter}
+SayVerse to say {Book} chapter {Chapter}
+SayVerse to read {Book} {Chapter}
+SayVerse to read {Book} chapter {Chapter}
+SayVerse to read me {Book} {Chapter} verse {StartVerse}
+SayVerse to read me {Book} {Chapter} {StartVerse}
+SayVerse to read me {Book} chapter {Chapter} verse {StartVerse}
+SayVerse to read me {Book} chapter {Chapter} {StartVerse}
+SayVerse to read to me {Book} {Chapter} verse {StartVerse}
+SayVerse to read to me {Book} {Chapter} {StartVerse}
+SayVerse to read to me {Book} chapter {Chapter} verse {StartVerse}
+SayVerse to read to me {Book} chapter {Chapter} {StartVerse}
+SayVerse to say {Book} {Chapter} verse {StartVerse}
+SayVerse to say {Book} {Chapter} {StartVerse}
+SayVerse to say {Book} chapter {Chapter} verse {StartVerse}
+SayVerse to say {Book} chapter {Chapter} {StartVerse}
+SayVerse to read {Book} {Chapter} verse {StartVerse}
+SayVerse to read {Book} {Chapter} {StartVerse}
+SayVerse to read {Book} chapter {Chapter} verse {StartVerse}
+SayVerse to read {Book} chapter {Chapter} {StartVerse}
+SayVerse to read me {Book} {Chapter} verse {StartVerse} to {EndVerse}
+SayVerse to read me {Book} {Chapter} verse {StartVerse} through {EndVerse}
+SayVerse to read me {Book} {Chapter} verses {StartVerse} to {EndVerse}
+SayVerse to read me {Book} {Chapter} verses {StartVerse} through {EndVerse}
+SayVerse to read me {Book} {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read me {Book} {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read me {Book} {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read me {Book} {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read me {Book} chapter {Chapter} verse {StartVerse} to {EndVerse}
+SayVerse to read me {Book} chapter {Chapter} verse {StartVerse} through {EndVerse}
+SayVerse to read me {Book} chapter {Chapter} verses {StartVerse} to {EndVerse}
+SayVerse to read me {Book} chapter {Chapter} verses {StartVerse} through {EndVerse}
+SayVerse to read me {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read me {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read me {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read me {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read to me {Book} {Chapter} verse {StartVerse} to {EndVerse}
+SayVerse to read to me {Book} {Chapter} verse {StartVerse} through {EndVerse}
+SayVerse to read to me {Book} {Chapter} verses {StartVerse} to {EndVerse}
+SayVerse to read to me {Book} {Chapter} verses {StartVerse} through {EndVerse}
+SayVerse to read to me {Book} {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read to me {Book} {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read to me {Book} {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read to me {Book} {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read to me {Book} chapter {Chapter} verse {StartVerse} to {EndVerse}
+SayVerse to read to me {Book} chapter {Chapter} verse {StartVerse} through {EndVerse}
+SayVerse to read to me {Book} chapter {Chapter} verses {StartVerse} to {EndVerse}
+SayVerse to read to me {Book} chapter {Chapter} verses {StartVerse} through {EndVerse}
+SayVerse to read to me {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read to me {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read to me {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read to me {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+SayVerse to say {Book} {Chapter} verse {StartVerse} to {EndVerse}
+SayVerse to say {Book} {Chapter} verse {StartVerse} through {EndVerse}
+SayVerse to say {Book} {Chapter} verses {StartVerse} to {EndVerse}
+SayVerse to say {Book} {Chapter} verses {StartVerse} through {EndVerse}
+SayVerse to say {Book} {Chapter} {StartVerse} to {EndVerse}
+SayVerse to say {Book} {Chapter} {StartVerse} through {EndVerse}
+SayVerse to say {Book} {Chapter} {StartVerse} to {EndVerse}
+SayVerse to say {Book} {Chapter} {StartVerse} through {EndVerse}
+SayVerse to say {Book} chapter {Chapter} verse {StartVerse} to {EndVerse}
+SayVerse to say {Book} chapter {Chapter} verse {StartVerse} through {EndVerse}
+SayVerse to say {Book} chapter {Chapter} verses {StartVerse} to {EndVerse}
+SayVerse to say {Book} chapter {Chapter} verses {StartVerse} through {EndVerse}
+SayVerse to say {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+SayVerse to say {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+SayVerse to say {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+SayVerse to say {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read {Book} {Chapter} verse {StartVerse} to {EndVerse}
+SayVerse to read {Book} {Chapter} verse {StartVerse} through {EndVerse}
+SayVerse to read {Book} {Chapter} verses {StartVerse} to {EndVerse}
+SayVerse to read {Book} {Chapter} verses {StartVerse} through {EndVerse}
+SayVerse to read {Book} {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read {Book} {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read {Book} {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read {Book} {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read {Book} chapter {Chapter} verse {StartVerse} to {EndVerse}
+SayVerse to read {Book} chapter {Chapter} verse {StartVerse} through {EndVerse}
+SayVerse to read {Book} chapter {Chapter} verses {StartVerse} to {EndVerse}
+SayVerse to read {Book} chapter {Chapter} verses {StartVerse} through {EndVerse}
+SayVerse to read {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+SayVerse to read {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+SayVerse to read {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+StudyVerse to study {Book} {Chapter} verse {StartVerse}
+StudyVerse to study {Book} {Chapter} {StartVerse}
+StudyVerse to study {Book} chapter {Chapter} verse {StartVerse}
+StudyVerse to study {Book} chapter {Chapter} {StartVerse}
+StudyVerse to study {Book} {Chapter} verse {StartVerse} to {EndVerse}
+StudyVerse to study {Book} {Chapter} verse {StartVerse} through {EndVerse}
+StudyVerse to study {Book} {Chapter} verses {StartVerse} to {EndVerse}
+StudyVerse to study {Book} {Chapter} verses {StartVerse} through {EndVerse}
+StudyVerse to study {Book} {Chapter} {StartVerse} to {EndVerse}
+StudyVerse to study {Book} {Chapter} {StartVerse} through {EndVerse}
+StudyVerse to study {Book} {Chapter} {StartVerse} to {EndVerse}
+StudyVerse to study {Book} {Chapter} {StartVerse} through {EndVerse}
+StudyVerse to study {Book} chapter {Chapter} verse {StartVerse} to {EndVerse}
+StudyVerse to study {Book} chapter {Chapter} verse {StartVerse} through {EndVerse}
+StudyVerse to study {Book} chapter {Chapter} verses {StartVerse} to {EndVerse}
+StudyVerse to study {Book} chapter {Chapter} verses {StartVerse} through {EndVerse}
+StudyVerse to study {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+StudyVerse to study {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+StudyVerse to study {Book} chapter {Chapter} {StartVerse} to {EndVerse}
+StudyVerse to study {Book} chapter {Chapter} {StartVerse} through {EndVerse}
+NextWordIntent {NextWord}

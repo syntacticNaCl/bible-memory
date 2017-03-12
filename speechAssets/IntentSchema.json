@@ -1,0 +1,58 @@
+{
+  "intents": [
+    {
+      "intent": "SayVerse",
+      "slots": [
+        {
+          "name": "Book",
+          "type": "BOOKS"
+        }, {
+          "name": "Chapter",
+          "type": "AMAZON.NUMBER"
+        }, {
+          "name": "StartVerse",
+          "type": "AMAZON.NUMBER"
+        }, {
+          "name": "EndVerse",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    }, {
+      "intent": "StudyVerse",
+      "slots": [
+        {
+          "name": "Book",
+          "type": "BOOKS"
+        }, {
+          "name": "Chapter",
+          "type": "AMAZON.NUMBER"
+        }, {
+          "name": "StartVerse",
+          "type": "AMAZON.NUMBER"
+        }, {
+          "name": "EndVerse",
+          "type": "AMAZON.NUMBER"
+        }
+        ]}, {
+        "intent": "NextWordIntent",
+        "slots": [
+    	{
+          "name": "NextWord",
+          "type": "WORD"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.RepeatIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}    
