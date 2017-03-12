@@ -52,11 +52,11 @@ const handlers = {
     }
 
         let path;
-        if(verseObj.StartVerse == null){
+        if(verseObj.StartVerse.value == null){
             path = encodeURIComponent(book + ' ' + verseObj.Chapter.value);
-        } else if(verseObj.StartVerse != null && verseObj.EndVerse == null) {
+        } else if(verseObj.StartVerse.value != null && verseObj.EndVerse.value == null) {
             path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.StartVerse.value);
-        } else if(verseObj.StartVerse != null && verseObj.EndVerse != null) {
+        } else if(verseObj.StartVerse.value != null && verseObj.EndVerse.value != null) {
             path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.StartVerse.value + '-' + verseObj.EndVerse.value);
         } else {
             path = encodeURIComponent(book + ' ' + verseObj.Chapter.value);
