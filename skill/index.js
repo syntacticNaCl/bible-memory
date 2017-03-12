@@ -128,14 +128,7 @@ const handlers = {
             console.log(scriptureRes);
             if(Object.keys(vm.attributes).length === 0) { // Check if it's the first time the skill has been invoked
 
-                vm.attributes = {
-                    originText : scriptureRes,
-                    originArray : scriptureRes.split(' '),
-                    currentArraySpot : 0,
-                    nextArraySpot : 2
-                };
-
-
+                var originArray = scriptureRes.split(' ')
 
                 var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
                 var params = {
@@ -145,9 +138,9 @@ const handlers = {
                         }, "originText": {
                             S: scriptureRes
                         }, "anwser": {
-                            S: vm.attributes.originArray[2]
-                        }, "position": {
-                            N: "2"
+                            S: originArray[2].replace(/[.,\/#!$%\^&\*;:{}=_`~()]/g,"")
+                        }, "nextPosition": {
+                            N: "3"
                         }
                     },
                     TableName: "c4tk-biblememory-session"
@@ -157,25 +150,12 @@ const handlers = {
                     else {
                         console.log(data);
 
-                        console.log(vm.attributes.originArray[0]);
+                        console.log(originArray[0]);
 
-                        vm.emit(':ask', vm.attributes.originArray[0] + ' ' + vm.attributes.originArray[1]);
+                        vm.emit(':ask', originArray[0] + ' ' + originArray[1]);
                     }
                 });
-
-
-
-                // vm.attributes['originText'] = scriptureRes;
-                // vm.attributes['originArray'] = scriptureRes.split(' ');
-                // vm.attributes['currentArraySpot'] = 0;
-                // vm.attributes['nextArraySpot'] = vm.attributes['currentArraySpot'] + 2;
-
-               // let currentArraySpot = vm.attributes.currentArraySpot;
-
-
             }
-
-         
         })
         .catch(function(err){
             console.log(err);
@@ -203,7 +183,38 @@ const handlers = {
                 console.log(data.Item.anwser.S);
                 console.log(nextWord);
                 if(nextWord === data.Item.anwser.S) {
-                    vm.emit(":tell", "YOU WIN")
+                    var originArray = data.Item.originText.S.split(' ');
+                    var nextPosition = parseInt(data.Item.nextPosition.N) + 3;
+
+                    console.log(vm.event.session.sessionId);
+                    console.log(data.Item.originText.S);
+                    console.log(originArray[nextPosition]);
+                    console.log(nextPosition);
+
+                    var params = {
+                        Item: {
+                            "sessionId": {
+                                S: vm.event.session.sessionId
+                            }, "originText": {
+                                S: data.Item.originText.S
+                            }, "anwser": {
+                                S: originArray[nextPosition - 1].replace(/[.,\/#!$%\^&\*;:{}=_`~()]/g,"")
+                            }, "nextPosition": {
+                                N: nextPosition.toString()
+                            }
+                        },
+                        TableName: "c4tk-biblememory-session"
+                    };
+                    dynamodb.putItem(params, function(err, data) {
+                        if (err) console.log(err, err.stack); // an error occurred
+                        else {
+                            console.log(data);
+
+                            console.log(originArray[0]);
+
+                            vm.emit(':ask', originArray[nextPosition - 3] + ' ' + originArray[nextPosition - 2]);
+                        }
+                    });
                 } else {
                     vm.emit(':ask', "Try again");
                 }
