@@ -151,7 +151,8 @@ const handlers = {
 */
                 let currentArraySpot = vm.attributes.currentArraySpot;
 
-                vm.emit(':ask', vm.attributes.originArray[0] + vm.attributes.originArray[1]);
+                // vm.emit(':ask', vm.attributes.originArray[0] + vm.attributes.originArray[1]);
+                vm.emit(':ask', 'Is this working?', 'Please say yes or no.');
             }
 
          
