@@ -30,7 +30,7 @@ const handlers = {
         let verseObj = this.event.request.intent.slots;
 
         let book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
-
+        
         if(verseObj.Book.value.includes("1") || verseObj.Book.value.includes("second") || verseObj.Book.value.includes("3")){
             let ar = verseObj.Book.value.split(" ");
 
@@ -70,7 +70,71 @@ const handlers = {
     },
     Unhandled : function() {
         this.emit(':tell', "Sorry for you I have not this intent");
+    },
+    StudyVerse : function(){
+        let firstOrThird;
+        let verseObj = this.event.request.intent.slots;
+
+        let book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
+        
+        if(verseObj.Book.value.includes("1") || verseObj.Book.value.includes("second") || verseObj.Book.value.includes("3")){
+            let ar = verseObj.Book.value.split(" ");
+
+            firstOrThird = ar[0];
+            book = ar[1].charAt(0).toUpperCase() + ar[1].slice(1);
+
+            switch(firstOrThird){
+            case "1st": 
+                 book = "1 " + ar[1];
+                 break;
+            case "second":
+                book = "2 " + ar[1];
+                break;
+            case "3rd":
+                book = "3 " + ar[1];
+                break
+            default: 
+                break;
+        }
     }
+    
+
+        let path = encodeURIComponent(book + ' ' + verseObj.Chapter.value + ':' + verseObj.Verse.value);
+        
+        let vm = this;
+
+        instance.get('/' + path)
+        .then(function(res){
+            let scriptureRes = res.data.text;
+            console.log(scriptureRes);
+            session.attributes.originText = scriptureRes;
+            session.attributes.originArray = scriptureRes.split();
+            session.attributes.currentArraySpot = 0;
+            session.attributes.nextArraySpot = session.attributes.currentArraySpot + 2;
+
+            vm.emit(':ask', session.attributes.originArray[session.attributes.currentArraySpot] + session.attributes.originArray[session.attributes.currentArraySpot + 1]);
+        
+         
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    },
+    NextWordIntent : function(){
+        let resObject = this.event.request.intent.slots;
+        let nextWord = resObject.NextWord.value;
+        if(nextWord === session.attributes.originArray[session.attributes.nextArraySpot])
+        {
+            session.attributes.currentArraySpot = session.attributes.nextArraySpot + 1;
+            session.attributes.nextArraySpot = session.attributes.currentArraySpot + 2;
+            this.emit(':ask', session.attributes.originArray[session.attributes.currentArraySpot] + session.attributes.originArray[session.attributes.currentArraySpot + 1]);
+        }
+        else
+        {
+            this.emit(':ask', "Wrong! So sorry you can't remember stuff");
+        }
+    }
+    
 }
 
 
