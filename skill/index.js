@@ -202,7 +202,7 @@ const handlers = {
                 console.log(data);
                 console.log(data.Item.anwser.S);
                 console.log(nextWord);
-                if(nextWord === data.Item.anwser.S.value) {
+                if(nextWord === data.Item.anwser.S) {
                     vm.emit(":tell", "YOU WIN")
                 } else {
                     vm.emit(':ask', "Try again");
