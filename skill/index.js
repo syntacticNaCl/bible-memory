@@ -73,6 +73,18 @@ const handlers = {
             console.log(err);
         });
     },
+    'AMAZON.HelpIntent': function () {
+        this.emit(':ask', 'Please ask me to study a book, chapter and verse.', 'Please study a verse');
+    },
+    'AMAZON.StopIntent': function () {
+        this.emit('SessionEndedRequest');
+    },
+    'AMAZON.CancelIntent': function () {
+        this.emit('SessionEndedRequest');
+    },
+    'SessionEndedRequest':function () {
+        this.emit(':tell', 'Have a blessed day!');
+    },
     Unhandled : function() {
         this.emit(':tell', "Please ask me to read or study a verse");
     },
@@ -185,7 +197,7 @@ const handlers = {
                 console.log(data);
                 console.log(data.Item.answer.S);
                 console.log(nextWord);
-                if(nextWord === data.Item.answer.S) {
+                if(nextWord === data.Item.answer.S) { // TODO: need to check if exists
                     var originArray = data.Item.originText.S.split(' ');
                     var nextPosition = parseInt(data.Item.nextPosition.N) + 3;
 
