@@ -31,7 +31,7 @@ const handlers = {
 
         let book = verseObj.Book.value.charAt(0).toUpperCase() + verseObj.Book.value.slice(1);
 
-        if(verseObj.Book.value.includes("1") || verseObj.Book.value.includes("2") || verseObj.Book.value.includes("3")){
+        if(verseObj.Book.value.includes("1") || verseObj.Book.value.includes("second") || verseObj.Book.value.includes("3")){
             let ar = verseObj.Book.value.split(" ");
 
             firstOrThird = ar[0];
@@ -39,13 +39,13 @@ const handlers = {
 
             switch(firstOrThird){
             case "1st": 
-                 book = "1" + ar[1];
+                 book = "1 " + ar[1];
                  break;
-            case "2nd":
-                book = "2" + ar[1];
+            case "second":
+                book = "2 " + ar[1];
                 break;
             case "3rd":
-                book = "3" + ar[1];
+                book = "3 " + ar[1];
                 break
             default: 
                 break;
